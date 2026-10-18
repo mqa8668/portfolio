@@ -1,0 +1,129 @@
+## Vietnamese translations for MQA Portfolio
+msgid ""
+msgstr ""
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:476
+#, elixir-autogen, elixir-format
+msgid "20 years of building production systems"
+msgstr "20 năm xây dựng các hệ thống production"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:168
+#, elixir-autogen, elixir-format
+msgid "About Me"
+msgstr "Về Tôi"
+
+#: lib/mqa_portfolio_web/components/core_components.ex:342
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/mqa_portfolio_web/components/layouts.ex:185
+#: lib/mqa_portfolio_web/components/layouts.ex:197
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr "Đang kết nối lại"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:12
+#, elixir-autogen, elixir-format
+msgid "Available for Freelance"
+msgstr "Sẵn Sàng Nhận Dự Án"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:474
+#, elixir-autogen, elixir-format
+msgid "Experience"
+msgstr "Kinh Nghiệm"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:198
+#, elixir-autogen, elixir-format
+msgid "Featured Projects"
+msgstr "Dự Án Nổi Bật"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:558
+#, elixir-autogen, elixir-format
+msgid "Full Experience"
+msgstr "Kinh Nghiệm Đầy Đủ"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:575
+#, elixir-autogen, elixir-format
+msgid "Get In Touch"
+msgstr "Liên Hệ"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:39
+#, elixir-autogen, elixir-format
+msgid "Hire Me"
+msgstr "Thuê Tôi"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "I build systems that run themselves — automated pipelines, concurrent backends, and production-grade infrastructure that handles real load without breaking."
+msgstr "Tôi xây dựng các hệ thống tự vận hành — pipeline tự động, backend đồng thời, và hạ tầng production-grade xử lý tải thật mà không bị lỗi."
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:567
+#, elixir-autogen, elixir-format
+msgid "Let's Build Something Together"
+msgstr "Hãy Cùng Xây Dựng"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:56
+#, elixir-autogen, elixir-format
+msgid "Live BEAM VM Stats"
+msgstr "Thống Kê BEAM VM Trực Tiếp"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:569
+#, elixir-autogen, elixir-format
+msgid "Looking for a senior Elixir engineer or DevOps specialist? I'm available for freelance projects."
+msgstr "Bạn đang tìm kỹ sư Elixir hoặc chuyên gia DevOps? Tôi sẵn sàng nhận dự án freelance."
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:200
+#, elixir-autogen, elixir-format
+msgid "Production systems I've built and shipped"
+msgstr "Các hệ thống production tôi đã xây dựng và triển khai"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Senior Elixir & DevOps Engineer"
+msgstr "Kỹ Sư Elixir & DevOps Cấp Cao"
+
+#: lib/mqa_portfolio_web/components/layouts.ex:192
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr "Đã xảy ra lỗi!"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:348
+#, elixir-autogen, elixir-format
+msgid "Tech Stack"
+msgstr "Công Nghệ"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:350
+#, elixir-autogen, elixir-format
+msgid "Tools and technologies I work with daily"
+msgstr "Các công cụ và công nghệ tôi sử dụng hàng ngày"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:338
+#, elixir-autogen, elixir-format
+msgid "View All Projects"
+msgstr "Xem Tất Cả Dự Án"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:232
+#: lib/mqa_portfolio_web/live/home_live.html.heex:265
+#: lib/mqa_portfolio_web/live/home_live.html.heex:296
+#: lib/mqa_portfolio_web/live/home_live.html.heex:329
+#, elixir-autogen, elixir-format
+msgid "View Case Study"
+msgstr "Xem Case Study"
+
+#: lib/mqa_portfolio_web/live/home_live.html.heex:36
+#, elixir-autogen, elixir-format
+msgid "View Projects"
+msgstr "Xem Dự Án"
+
+#: lib/mqa_portfolio_web/components/layouts.ex:180
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr "Không thể kết nối internet"
+
+#: lib/mqa_portfolio_web/components/core_components.ex:74
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""

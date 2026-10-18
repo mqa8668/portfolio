@@ -1,0 +1,605 @@
+<Layouts.app flash={@flash} current_path="/">
+  <!-- Hero Section -->
+  <section id="hero" class="hero min-h-[90vh] bg-base-200">
+    <div class="hero-content text-center">
+      <div class="max-w-3xl">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div :if={@visitor_count > 0} class="badge badge-ghost gap-1">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75">
+              </span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+            </span>
+            {@visitor_count} viewing now
+          </div>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+          Loc <span class="text-primary">Luong</span>
+        </h1>
+        <p class="text-xl md:text-2xl mt-4 text-base-content/70">
+          {gettext("Senior Engineer | Web Apps, APIs & Automation")}
+        </p>
+        <p class="text-base md:text-lg mt-2 text-base-content/50 max-w-2xl mx-auto">
+          {gettext(
+            "Based in Vietnam, working remotely. Most of my work is infrastructure that has to stay up and the backend software that runs on it."
+          )}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4 justify-center">
+          <a href="/projects" class="btn btn-primary btn-lg">
+            {gettext("View Projects")} <.icon name="hero-arrow-right" class="size-5" />
+          </a>
+          <a href={MqaPortfolio.Content.contact_url()} class="btn btn-outline btn-lg">
+            {gettext("Get in touch")}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- Live Stats Bar -->
+  <section id="stats" class="py-12 bg-base-300">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex items-center justify-center gap-2 mb-6">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75">
+          </span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+        </span>
+        <span class="text-sm text-base-content/60 font-mono uppercase tracking-wider">
+          {gettext("Live BEAM VM Stats")}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="stat bg-base-100 rounded-box shadow text-center p-4">
+          <div class="stat-title text-xs">Processes</div>
+          <div class="stat-value text-lg text-primary font-mono">{@beam_stats.processes}</div>
+        </div>
+        <div class="stat bg-base-100 rounded-box shadow text-center p-4">
+          <div class="stat-title text-xs">Memory</div>
+          <div class="stat-value text-lg text-primary font-mono">{@beam_stats.memory_mb} MB</div>
+        </div>
+        <div class="stat bg-base-100 rounded-box shadow text-center p-4">
+          <div class="stat-title text-xs">Uptime</div>
+          <div class="stat-value text-lg text-primary font-mono">
+            {div(@beam_stats.uptime_seconds, 3600)}h {rem(div(@beam_stats.uptime_seconds, 60), 60)}m
+          </div>
+        </div>
+        <div class="stat bg-base-100 rounded-box shadow text-center p-4">
+          <div class="stat-title text-xs">Schedulers</div>
+          <div class="stat-value text-lg text-primary font-mono">{@beam_stats.schedulers}</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div
+          id="stat-years"
+          phx-hook="CountUp"
+          data-target="20"
+          data-suffix=""
+          class="stat bg-base-100 rounded-box shadow text-center p-4"
+        >
+          <div class="stat-title text-xs">Experience</div>
+          <div id="stat-years-value" class="stat-value text-lg" data-count-value>20</div>
+          <div class="stat-desc">Years</div>
+        </div>
+        <div
+          id="stat-elixir"
+          phx-hook="CountUp"
+          data-target="6"
+          data-suffix="+"
+          class="stat bg-base-100 rounded-box shadow text-center p-4"
+        >
+          <div class="stat-title text-xs">Elixir</div>
+          <div id="stat-elixir-value" class="stat-value text-lg" data-count-value>6+</div>
+          <div class="stat-desc">Years</div>
+        </div>
+        <div
+          id="stat-projects"
+          phx-hook="CountUp"
+          data-target="10"
+          data-suffix="+"
+          class="stat bg-base-100 rounded-box shadow text-center p-4"
+        >
+          <div class="stat-title text-xs">Projects</div>
+          <div id="stat-projects-value" class="stat-value text-lg" data-count-value>10+</div>
+          <div class="stat-desc">Delivered</div>
+        </div>
+        <div
+          id="stat-tests"
+          phx-hook="CountUp"
+          data-target="540"
+          data-suffix="+"
+          class="stat bg-base-100 rounded-box shadow text-center p-4"
+        >
+          <div class="stat-title text-xs">Tests</div>
+          <div id="stat-tests-value" class="stat-value text-lg" data-count-value>540+</div>
+          <div class="stat-desc">Passing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- Interactive Terminal Section -->
+  <section id="terminal" class="py-16 bg-base-100">
+    <div class="max-w-3xl mx-auto px-4" phx-hook="FadeIn" id="terminal-fade">
+      <div class="text-center mb-8">
+        <p class="text-sm text-base-content/50 font-mono uppercase tracking-wider">
+          This server is live. Try it yourself
+        </p>
+      </div>
+      <div
+        id="interactive-terminal"
+        phx-hook="Terminal"
+        data-lines={Jason.encode!(@terminal_lines)}
+        class="mockup-code bg-base-300 shadow-xl text-sm"
+      >
+        <div data-terminal-output class="px-6 pb-4 font-mono space-y-1"></div>
+        <div class="px-6 pb-2">
+          <span class="text-success">iex&gt;</span>
+          <span data-terminal-cursor class="animate-pulse text-base-content/60">_</span>
+        </div>
+      </div>
+      <p class="text-center text-xs text-base-content/40 mt-3 font-mono">
+        Powered by Erlang/OTP {System.otp_release()} · Elixir {System.version()} · Phoenix LiveView
+      </p>
+    </div>
+  </section>
+  
+<!-- About Section -->
+  <section id="about" class="py-24 bg-base-200">
+    <div class="max-w-5xl mx-auto px-4" phx-hook="FadeIn" id="about-fade">
+      <div class="card bg-base-100/80 backdrop-blur-sm shadow-xl">
+        <div class="card-body">
+          <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+            <div class="avatar placeholder shrink-0">
+              <div class="bg-primary text-primary-content rounded-full w-24 h-24">
+                <span class="text-3xl font-bold">QL</span>
+              </div>
+            </div>
+            <div class="flex-1 text-center md:text-left">
+              <h2 class="text-3xl font-bold mb-4">{gettext("About Me")}</h2>
+              <p class="text-base-content/70 text-lg leading-relaxed mb-4">
+                Senior engineer in Vietnam, working remotely, with 20 years
+                of experience building production systems. I work mostly with Elixir/OTP for
+                concurrent, fault-tolerant backends and with Kubernetes for infrastructure automation.
+              </p>
+              <p class="text-base-content/70 text-lg leading-relaxed mb-6">
+                Past projects include an algorithmic trading platform that processes real-time
+                market data, an AI content automation pipeline, and a document translation system.
+              </p>
+              <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                <span class="badge badge-primary badge-lg">Elixir/OTP</span>
+                <span class="badge badge-secondary badge-lg">DevOps</span>
+                <span class="badge badge-accent badge-lg">Kubernetes</span>
+                <span class="badge badge-info badge-lg">AI Integration</span>
+                <span class="badge badge-success badge-lg">Trading Systems</span>
+                <span class="badge badge-warning badge-lg">Infrastructure</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- Featured Projects Section -->
+  <section id="projects" class="py-24 bg-base-100">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12" phx-hook="FadeIn" id="projects-title-fade">
+        <h2 class="text-4xl font-bold">{gettext("Featured Projects")}</h2>
+        <p class="text-base-content/60 mt-3 text-lg">
+          {gettext("Production systems I've built and shipped")}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+          phx-hook="FadeIn"
+          id="project-card-0"
+          data-delay="0"
+          class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+        >
+          <figure class="h-48 bg-gradient-to-br from-info/20 to-success/20 flex items-center justify-center">
+            <.icon name="hero-signal" class="size-16 text-info/40" />
+          </figure>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <h3 class="card-title">edge-to-trace</h3>
+              <span class="badge badge-success gap-1">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-success-content"></span>
+                Live
+              </span>
+            </div>
+            <p class="text-base-content/70">
+              Runnable observability lab: SLO burn-rate alerts, exemplars, traces and logs
+              wired together, from the edge to the exact slow span.
+            </p>
+            <div class="flex flex-wrap gap-1 mt-2">
+              <span class="badge badge-outline badge-sm">DevOps</span>
+              <span class="badge badge-outline badge-sm">Observability</span>
+              <span class="badge badge-outline badge-sm">SRE</span>
+            </div>
+            <div class="card-actions justify-end mt-4">
+              <a href="/projects/edge-to-trace" class="btn btn-primary btn-sm">
+                {gettext("View Case Study")} <.icon name="hero-arrow-right" class="size-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="project-card-1"
+          data-delay="0"
+          class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+        >
+          <figure class="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+            <.icon name="hero-sparkles" class="size-16 text-primary/40" />
+          </figure>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <h3 class="card-title">Routinova.com</h3>
+              <span class="badge badge-success gap-1">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-success-content"></span>
+                Live
+              </span>
+            </div>
+            <p class="text-base-content/70">
+              AI-powered content automation platform. Generates, schedules, and publishes
+              SEO-optimized content across multiple channels automatically.
+            </p>
+            <div class="flex flex-wrap gap-1 mt-2">
+              <span class="badge badge-outline badge-sm">Elixir</span>
+              <span class="badge badge-outline badge-sm">AI</span>
+              <span class="badge badge-outline badge-sm">Automation</span>
+            </div>
+            <div class="card-actions justify-end mt-4">
+              <a href="/projects/routinova" class="btn btn-primary btn-sm">
+                {gettext("View Case Study")} <.icon name="hero-arrow-right" class="size-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="project-card-2"
+          data-delay="100"
+          class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+        >
+          <figure class="h-48 bg-gradient-to-br from-warning/20 to-error/20 flex items-center justify-center">
+            <.icon name="hero-chart-bar" class="size-16 text-warning/40" />
+          </figure>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <h3 class="card-title">Helios</h3>
+              <span class="badge badge-success gap-1">
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-success-content"></span>
+                Live
+              </span>
+            </div>
+            <p class="text-base-content/70">
+              Algorithmic trading system processing real-time market data via WebSocket.
+              Built with OTP for fault tolerance and Broadway for data pipelines.
+            </p>
+            <div class="flex flex-wrap gap-1 mt-2">
+              <span class="badge badge-outline badge-sm">Elixir</span>
+              <span class="badge badge-outline badge-sm">OTP</span>
+              <span class="badge badge-outline badge-sm">Trading</span>
+            </div>
+            <div class="card-actions justify-end mt-4">
+              <a href="/projects/helios" class="btn btn-primary btn-sm">
+                {gettext("View Case Study")} <.icon name="hero-arrow-right" class="size-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="project-card-3"
+          data-delay="200"
+          class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+        >
+          <figure class="h-48 bg-gradient-to-br from-info/20 to-primary/20 flex items-center justify-center">
+            <.icon name="hero-language" class="size-16 text-info/40" />
+          </figure>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <h3 class="card-title">TransFlow</h3>
+              <span class="badge badge-info gap-1">Development</span>
+            </div>
+            <p class="text-base-content/70">
+              Enterprise document translation platform with multi-provider AI support.
+              Handles complex document formats while preserving structure and formatting.
+            </p>
+            <div class="flex flex-wrap gap-1 mt-2">
+              <span class="badge badge-outline badge-sm">Elixir</span>
+              <span class="badge badge-outline badge-sm">AI</span>
+              <span class="badge badge-outline badge-sm">Enterprise</span>
+            </div>
+            <div class="card-actions justify-end mt-4">
+              <a href="/projects/transflow" class="btn btn-primary btn-sm">
+                {gettext("View Case Study")} <.icon name="hero-arrow-right" class="size-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="/projects" class="btn btn-outline btn-primary">
+          {gettext("View All Projects")} <.icon name="hero-arrow-right" class="size-5" />
+        </a>
+      </div>
+    </div>
+  </section>
+  
+<!-- Tech Stack Section -->
+  <section id="tech-stack" class="py-24 bg-base-200">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12" phx-hook="FadeIn" id="tech-title-fade">
+        <h2 class="text-4xl font-bold">{gettext("Tech Stack")}</h2>
+        <p class="text-base-content/60 mt-3 text-lg">
+          {gettext("Tools and technologies I work with daily")}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          phx-hook="FadeIn"
+          id="tech-backend"
+          data-delay="0"
+          class="card bg-base-100 shadow hover:shadow-lg transition-shadow"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-primary">
+              <.icon name="hero-server-stack" class="size-5" /> Backend
+            </h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="badge badge-primary">Elixir</span>
+              <span class="badge badge-primary">Phoenix</span>
+              <span class="badge badge-primary">OTP</span>
+              <span class="badge badge-primary">PostgreSQL</span>
+              <span class="badge badge-primary">Redis</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="tech-devops"
+          data-delay="100"
+          class="card bg-base-100 shadow hover:shadow-lg transition-shadow"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-secondary">
+              <.icon name="hero-cloud" class="size-5" /> DevOps
+            </h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="badge badge-secondary">Kubernetes</span>
+              <span class="badge badge-secondary">Docker</span>
+              <span class="badge badge-secondary">Terraform</span>
+              <span class="badge badge-secondary">ArgoCD</span>
+              <span class="badge badge-secondary">Helm</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="tech-trading"
+          data-delay="200"
+          class="card bg-base-100 shadow hover:shadow-lg transition-shadow"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-warning">
+              <.icon name="hero-chart-bar" class="size-5" /> Trading
+            </h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="badge badge-warning">Binance API</span>
+              <span class="badge badge-warning">WebSocket</span>
+              <span class="badge badge-warning">Broadway</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="tech-ai"
+          data-delay="300"
+          class="card bg-base-100 shadow hover:shadow-lg transition-shadow"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-accent">
+              <.icon name="hero-sparkles" class="size-5" /> AI
+            </h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="badge badge-accent">Gemini</span>
+              <span class="badge badge-accent">DeepSeek</span>
+              <span class="badge badge-accent">OpenAI</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="tech-mobile"
+          data-delay="400"
+          class="card bg-base-100 shadow hover:shadow-lg transition-shadow"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-info">
+              <.icon name="hero-device-phone-mobile" class="size-5" /> Mobile
+            </h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="badge badge-info">Flutter</span>
+              <span class="badge badge-info">Dart</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          phx-hook="FadeIn"
+          id="tech-monitoring"
+          data-delay="500"
+          class="card bg-base-100 shadow hover:shadow-lg transition-shadow"
+        >
+          <div class="card-body">
+            <h3 class="card-title text-success">
+              <.icon name="hero-eye" class="size-5" /> Monitoring
+            </h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="badge badge-success">Grafana</span>
+              <span class="badge badge-success">Prometheus</span>
+              <span class="badge badge-success">Loki</span>
+              <span class="badge badge-success">ELK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- Experience Timeline Section -->
+  <section id="experience" class="py-24 bg-base-100">
+    <div class="max-w-4xl mx-auto px-4" phx-hook="FadeIn" id="experience-fade">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold">{gettext("Experience")}</h2>
+        <p class="text-base-content/60 mt-3 text-lg">
+          {gettext("20 years of building production systems")}
+        </p>
+      </div>
+
+      <ul class="timeline timeline-vertical timeline-snap-icon">
+        <li>
+          <div class="timeline-middle">
+            <.icon name="hero-check-circle-solid" class="size-5 text-primary" />
+          </div>
+          <div class="timeline-start md:text-end mb-10">
+            <time class="font-mono text-sm text-base-content/60">2022 - Present</time>
+            <span class="badge badge-primary badge-sm ml-2">Current</span>
+            <div class="text-lg font-bold mt-1">VinCSS</div>
+            <div class="text-base-content/70 font-medium">Senior DevOps Engineer</div>
+            <p class="text-base-content/50 text-sm mt-1">
+              Platform lead for passwordless (FIDO2) and zero-trust access products: Kubernetes GitOps, a zero-trust replacement for traditional VPN, HA customer deployments and LLM-assisted observability.
+            </p>
+          </div>
+          <hr class="bg-primary" />
+        </li>
+
+        <li>
+          <hr class="bg-primary" />
+          <div class="timeline-middle">
+            <.icon name="hero-check-circle-solid" class="size-5 text-primary" />
+          </div>
+          <div class="timeline-end mb-10">
+            <time class="font-mono text-sm text-base-content/60">2019 - 2022</time>
+            <div class="text-lg font-bold mt-1">Netacom (VPBank subsidiary)</div>
+            <div class="text-base-content/70 font-medium">DevOps Lead</div>
+            <p class="text-base-content/50 text-sm mt-1">
+              Built the infrastructure from scratch: Kubernetes environments, CI/CD automation, and Kafka, TiDB and MinIO deployments.
+            </p>
+          </div>
+          <hr class="bg-primary" />
+        </li>
+
+        <li>
+          <hr class="bg-primary" />
+          <div class="timeline-middle">
+            <.icon name="hero-check-circle-solid" class="size-5 text-primary" />
+          </div>
+          <div class="timeline-start md:text-end mb-10">
+            <time class="font-mono text-sm text-base-content/60">2018 - 2019</time>
+            <div class="text-lg font-bold mt-1">Datamark (UOB)</div>
+            <div class="text-base-content/70 font-medium">Backend Developer, E-commerce</div>
+            <p class="text-base-content/50 text-sm mt-1">
+              Data pipelines for Shopee shop data, plus credit-risk dashboards and customer analytics with UOB.
+            </p>
+          </div>
+          <hr />
+        </li>
+
+        <li>
+          <hr />
+          <div class="timeline-middle">
+            <.icon name="hero-check-circle-solid" class="size-5 text-base-content/30" />
+          </div>
+          <div class="timeline-end mb-10">
+            <time class="font-mono text-sm text-base-content/60">2017 - 2018</time>
+            <div class="text-lg font-bold mt-1">Yeah1 Group</div>
+            <div class="text-base-content/70 font-medium">Full-Stack Developer</div>
+            <p class="text-base-content/50 text-sm mt-1">
+              Built the internal ERP system in Elixir and Phoenix, Facebook and YouTube API integrations for content analytics, and financial reporting tools.
+            </p>
+          </div>
+          <hr />
+        </li>
+
+        <li>
+          <hr />
+          <div class="timeline-middle">
+            <.icon name="hero-check-circle-solid" class="size-5 text-base-content/30" />
+          </div>
+          <div class="timeline-start md:text-end mb-10">
+            <time class="font-mono text-sm text-base-content/60">2014 - 2017</time>
+            <div class="text-lg font-bold mt-1">SSGroup / ECDC</div>
+            <div class="text-base-content/70 font-medium">Division Lead, Web &amp; Mobile</div>
+            <p class="text-base-content/50 text-sm mt-1">
+              Led the engineering division for Appcent, SSPayment, Samsung Flix TV and other web and mobile products.
+            </p>
+          </div>
+          <hr />
+        </li>
+
+        <li>
+          <hr />
+          <div class="timeline-middle">
+            <.icon name="hero-check-circle-solid" class="size-5 text-base-content/30" />
+          </div>
+          <div class="timeline-end mb-10">
+            <time class="font-mono text-sm text-base-content/60">2006 - 2014</time>
+            <div class="text-lg font-bold mt-1">VNG Corporation</div>
+            <div class="text-base-content/70 font-medium">Web Framework Lead, Game Division</div>
+            <p class="text-base-content/50 text-sm mt-1">
+              Led the web framework infrastructure for VNG's Game Division for 8 years.
+            </p>
+          </div>
+        </li>
+      </ul>
+
+      <div class="text-center mt-8">
+        <a href="/experience" class="btn btn-outline btn-primary">
+          {gettext("Full Experience")} <.icon name="hero-arrow-right" class="size-5" />
+        </a>
+      </div>
+    </div>
+  </section>
+  
+<!-- Contact CTA Section -->
+  <section id="contact" class="py-24 bg-primary text-primary-content">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-4xl font-bold">{gettext("Get in touch")}</h2>
+      <p class="mt-4 text-lg opacity-90">
+        {gettext("Questions about a system, a role or one of these projects? Get in touch.")}
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4 justify-center">
+        <a
+          href={MqaPortfolio.Content.contact_url()}
+          class="btn btn-lg bg-base-100 text-primary hover:bg-base-200"
+        >
+          {gettext("Get In Touch")}
+        </a>
+        <a
+          href="https://github.com/mqa8668"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-lg btn-outline border-primary-content text-primary-content hover:bg-primary-content hover:text-primary"
+        >
+          <.icon name="hero-code-bracket" class="size-5" /> GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+</Layouts.app>

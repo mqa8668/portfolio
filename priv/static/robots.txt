@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /dev/
+Disallow: /api/
+
+Sitemap: https://loc.forgiolab.com/sitemap.xml

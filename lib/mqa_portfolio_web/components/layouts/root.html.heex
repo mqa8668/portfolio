@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <meta
+      name="description"
+      content="Loc Luong, Senior engineer with 20 years of experience building web apps, APIs and automation. Works with Phoenix LiveView, Kubernetes and automated systems."
+    />
+
+    <%!-- Open Graph --%>
+    <meta property="og:title" content="Loc Luong | Senior Engineer, Web Apps, APIs & Automation" />
+    <meta
+      property="og:description"
+      content="Loc Luong, Senior engineer with 20 years of experience building web apps, APIs and automation. Works with Phoenix LiveView, Kubernetes and automated systems."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://loc.forgiolab.com" />
+    <meta property="og:image" content="/images/og-card.png" />
+
+    <%!-- Twitter Card --%>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Loc Luong | Senior Engineer, Web Apps, APIs & Automation" />
+    <meta
+      name="twitter:description"
+      content="Loc Luong, Senior engineer with 20 years of experience building web apps, APIs and automation. Works with Phoenix LiveView, Kubernetes and automated systems."
+    />
+    <meta name="twitter:image" content="/images/og-card.png" />
+
+    <%!-- Fonts: Inter (body) + JetBrains Mono (code) --%>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <.live_title default="Loc Luong" suffix=" | Loc Luong">
+      {assigns[:page_title]}
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
+    </script>
+    <script>
+      (() => {
+        const setTheme = (theme) => {
+          if (theme === "system") {
+            localStorage.removeItem("phx:theme");
+            document.documentElement.removeAttribute("data-theme");
+          } else {
+            localStorage.setItem("phx:theme", theme);
+            document.documentElement.setAttribute("data-theme", theme);
+          }
+        };
+        if (!document.documentElement.hasAttribute("data-theme")) {
+          setTheme(localStorage.getItem("phx:theme") || "system");
+        }
+        window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
+
+        window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
+      })();
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Loc Luong",
+        "jobTitle": "Senior Software Engineer",
+        "description": "Senior engineer with 20 years of experience building web apps, APIs and automation. Works with Phoenix LiveView, Kubernetes and automated systems.",
+        "url": "https://loc.forgiolab.com",
+        "sameAs": [
+          "https://github.com/mqa8668"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ho Chi Minh City",
+          "addressCountry": "VN"
+        },
+        "knowsAbout": ["Elixir", "Phoenix Framework", "Kubernetes", "DevOps", "Trading Systems", "AI Integration"]
+      }
+    </script>
+  </head>
+  <body class="font-sans">
+    {@inner_content}
+  </body>
+</html>
